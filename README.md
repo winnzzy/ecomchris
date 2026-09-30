@@ -9,11 +9,11 @@ npm install
 npm run dev
 ```
 
-Build with `npm run build`. The static output is in `dist/`. Any static host must serve `index.html` as a fallback for `/shop`, `/contact`, `/privacy`, `/terms`, `/returns`, and `/shipping`.
+Build with `npm run build`. The static output is in `dist/`, including standalone HTML entry points for `/shop`, `/contact`, `/privacy`, `/terms`, `/returns`, and `/shipping`. The Render service deploys this directory on each commit to `main`.
 
 ## Before publishing or sending merchant screenshots
 
-The supplied checklist asks for the DBA on the home page, actual product/service prices, a phone number on the contact page, and privacy, terms, cancellation/refund, and shipping policies. This initial version contains all the requested page structures, but the screenshot did not supply the business's real details. **Do not represent preview data as the merchant's actual operations.**
+The supplied checklist asks for the DBA on the home page, actual product/service prices, a phone number on the contact page, and privacy, terms, cancellation/refund, and shipping policies. This initial version contains all the requested page structures and interactive catalog search, filtering, sorting, product details, and a local bag, but the screenshot did not supply the business's real details. **Do not represent preview data as the merchant's actual operations.**
 
 1. Update `src/config.js`: verify the DBA (and legal name, if different), telephone, email, address, support hours, currency, shipping and returns details.
 2. Replace the illustrative catalog, prices, descriptions, and remote Unsplash images with the real inventory and licensed product photos.
