@@ -1,23 +1,31 @@
-// Replace the review fields with verified business information before submitting the URL.
+// Business information for Socyn Crest LLC.
+// The owner should verify every field here before sending the site to the bank:
+// especially phone and address, which are still placeholders.
 export const business = {
-  name: 'Ecom Chris',
-  legalName: '',
+  name: 'Socyn Crest',
+  legalName: 'Socyn Crest LLC',
+  trade: 'Clothing & textiles',
   phone: '',
-  email: '',
+  email: 'contact@socyncrest.com',
   address: '',
   supportHours: '',
   currency: 'USD',
-  shipping: '',
-  returns: '',
-  updated: 'September 30, 2026',
+  shipping: 'Orders are processed within 2–3 business days and shipped via USPS, UPS, or FedEx.',
+  returns: '30-day returns on unused, unworn items. Refunds go to the original payment method within 10 business days.',
+  updated: 'October 5, 2026',
 };
 
-// Illustrative products and prices only. Replace with the real catalog before publishing to customers.
+// Product catalog with example prices for the clothing & textile store.
+// Replace images with real product photography before launch.
 export const products = [
-  {id:'desk-lamp', name:'Arc Desk Lamp', category:'Home', price:49, badge:'A brighter workspace', image:'photo-1507473885765-e6ed057f782c', description:'A compact accent for focused evenings and quiet corners.'},
-  {id:'tote', name:'Everyday Canvas Tote', category:'Accessories', price:28, badge:'Easy to carry', image:'photo-1544816155-12df9643f363', description:'A practical carryall for errands, workdays, and everything between.'},
-  {id:'ceramic', name:'Stoneware Cup Set', category:'Home', price:36, badge:'Made for slow mornings', image:'photo-1514228742587-6b1558fcca3d', description:'Simple shapes for a calm everyday ritual.'},
-  {id:'headphones', name:'Wireless Headphones', category:'Tech', price:89, badge:'Sound on your terms', image:'photo-1505740420928-5e560c06d30e', description:'An easy listening companion for work and downtime.'},
-  {id:'notebook', name:'Daily Notes Journal', category:'Lifestyle', price:22, badge:'Room for ideas', image:'photo-1531346878377-a5be20888e57', description:'A clean space to capture plans, thoughts, and passing ideas.'},
-  {id:'watch', name:'Minimal Wristwatch', category:'Accessories', price:74, badge:'Everyday detail', image:'photo-1523275335684-37898b6baf30', description:'Understated form that pairs with the moments that matter.'},
+  {id:'essential-tee', name:'Essential Cotton T-Shirt', category:'Men', price:24.99, badge:'Everyday essential', image:'photo-1521572163474-6864f9cf17ab', description:'A breathable 100% cotton tee with a clean, classic cut. The foundation of every wardrobe.'},
+  {id:'heritage-tee', name:'Graphic Heritage Tee', category:'Men', price:29.99, badge:'Bold print', image:'photo-1576566588028-4147f3842f27', description:'Soft-touch cotton tee with a heritage-inspired chest print. Comfort with character.'},
+  {id:'cloud-hoodie', name:'Cloud Fleece Hoodie', category:'Men', price:54.99, badge:'Cozy staple', image:'photo-1556821840-3a63f95609a7', description:'Brushed-back fleece hoodie with a relaxed fit and kangaroo pocket. Made for slow weekends.'},
+  {id:'white-sweatshirt', name:'Classic White Sweatshirt', category:'Women', price:49.99, badge:'Soft & simple', image:'photo-1620799140408-edc6dcb6d633', description:'A crisp white sweatshirt in soft loopback cotton. Pairs with absolutely everything.'},
+  {id:'slim-jeans', name:'Slim-Fit Denim Jeans', category:'Men', price:69.99, badge:'Denim classic', image:'photo-1542272604-787c3835535d', description:'Slim through the leg with a touch of stretch for all-day comfort. A denim drawer essential.'},
+  {id:'scarlet-dress', name:'Scarlet Wrap Midi Dress', category:'Women', price:79.99, badge:'Evening ready', image:'photo-1595777457583-95e059d581b8', description:'A flowing wrap midi dress in bold scarlet. Made to turn heads.'},
+  {id:'blush-joggers', name:'Blush Jogger Pants', category:'Women', price:39.99, badge:'Lounge in style', image:'photo-1594633312681-425c7b97ccd1', description:'Soft blush joggers with cuffed ankles and a flattering high rise. Comfort, elevated.'},
+  {id:'rust-bomber', name:'Rust Bomber Jacket', category:'Outerwear', price:99.99, badge:'Statement layer', image:'photo-1591047139829-d91aecb6caea', description:'A rust-toned bomber with a modern cut and matte hardware. Your go-to layer.'},
+  {id:'knit-poncho', name:'Hand-Knit Poncho', category:'Women', price:64.99, badge:'Artisan knit', image:'photo-1434389677669-e08b4cac3105', description:'A hand-finished knit poncho with fringe detail. Cozy craftsmanship you can feel.'},
+  {id:'chambray-shirt', name:'Chambray Everyday Shirt', category:'Women', price:44.99, badge:'Easy layer', image:'photo-1596755094514-f87e34085b2c', description:'Lightweight chambray shirt that layers over everything, in every season.'},
 ];

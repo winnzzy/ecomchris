@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'node:path';
 
-const routes = ['shop', 'contact', 'privacy', 'terms', 'returns', 'shipping'];
+const routes = ['shop', 'contact', 'privacy', 'terms', 'returns', 'shipping', 'admin'];
 export default defineConfig({
   build: {
     rollupOptions: {
