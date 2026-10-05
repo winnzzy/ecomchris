@@ -17,6 +17,7 @@ import { products as seedCatalog } from '../config.js';
 const K = {
   users: 'sc_users',
   session: 'sc_session',
+  sessionTmp: 'sc_session_tmp', // "remember me" off -> sessionStorage only
   products: 'sc_products',
   orders: 'sc_orders',
   seeded: 'sc_seeded_v1',
@@ -32,6 +33,27 @@ const read = (k, fallback) => {
 };
 const write = (k, v) => localStorage.setItem(k, JSON.stringify(v));
 const uid = (p = 'id') => `${p}_${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}`;
+
+/* Session lives in localStorage ("remember me") or sessionStorage (this tab only). */
+const readSessionId = () => {
+  try {
+    const tmp = sessionStorage.getItem(K.sessionTmp);
+    if (tmp) return JSON.parse(tmp);
+  } catch { /* ignore */ }
+  return read(K.session, null);
+};
+const writeSessionId = (id, remember) => {
+  try { sessionStorage.removeItem(K.sessionTmp); } catch { /* ignore */ }
+  try { localStorage.removeItem(K.session); } catch { /* ignore */ }
+  if (id == null) return;
+  if (remember === false) {
+    try { sessionStorage.setItem(K.sessionTmp, JSON.stringify(id)); } catch { /* ignore */ }
+  } else {
+    write(K.session, id);
+  }
+};
+
+const emailOk = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v || '');
 
 async function sha256(str) {
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(`socyn-crest:${str}`));
@@ -80,45 +102,71 @@ async function seed() {
   write(K.seeded, true);
 }
 
-const publicUser = (u) => (u ? { id: u.id, name: u.name, email: u.email, is_admin: !!u.is_admin } : null);
+const publicUser = (u) => (u ? { id: u.id, name: u.name, email: u.email, phone: u.phone || '', is_admin: !!u.is_admin } : null);
 
 /* ---------------- interface ---------------- */
 export const localBackend = {
   mode: 'demo',
 
-  async signUp({ name, email, password }) {
+  async signUp({ name, email, phone, password, marketing }) {
     await seed();
-    email = email.trim().toLowerCase();
-    if (!name.trim() || !email || password.length < 6) throw new Error('Please provide your name, a valid email, and a password of at least 6 characters.');
+    email = (email || '').trim().toLowerCase();
+    phone = (phone || '').trim();
+    if (!name?.trim()) throw new Error('Please enter your full name.');
+    if (!emailOk(email)) throw new Error('Please enter a valid email address.');
+    if (!password || password.length < 8) throw new Error('Your password must be at least 8 characters.');
     const users = read(K.users, []);
     if (users.some((u) => u.email === email)) throw new Error('An account with this email already exists. Try signing in instead.');
-    const user = { id: uid('u'), name: name.trim(), email, passwordHash: await sha256(password), is_admin: false, created_at: new Date().toISOString() };
+    const user = {
+      id: uid('u'), name: name.trim(), email, phone,
+      marketingOptIn: !!marketing,
+      passwordHash: await sha256(password), is_admin: false,
+      created_at: new Date().toISOString(),
+    };
     users.push(user);
     write(K.users, users);
-    write(K.session, user.id);
-    return publicUser(user);
+    writeSessionId(user.id, true);
+    return { user: publicUser(user), emailConfirmationRequired: false };
   },
 
-  async signIn({ email, password }) {
+  async signIn({ email, password, remember }) {
     await seed();
-    email = email.trim().toLowerCase();
+    email = (email || '').trim().toLowerCase();
     const users = read(K.users, []);
     const user = users.find((u) => u.email === email);
     if (!user || user.passwordHash !== (await sha256(password))) throw new Error('Incorrect email or password.');
-    write(K.session, user.id);
+    writeSessionId(user.id, remember !== false);
     return publicUser(user);
   },
 
   async signOut() {
-    localStorage.removeItem(K.session);
+    writeSessionId(null);
   },
 
   async getSession() {
     await seed();
-    const id = read(K.session, null);
+    const id = readSessionId();
     if (!id) return null;
     const user = read(K.users, []).find((u) => u.id === id);
     return publicUser(user);
+  },
+
+  /** Demo mode cannot send email — the UI explains this. Kept for interface parity. */
+  async requestPasswordReset() {
+    await seed();
+    return { emailSent: false };
+  },
+
+  async updatePassword(password) {
+    await seed();
+    if (!password || password.length < 8) throw new Error('Your password must be at least 8 characters.');
+    const id = readSessionId();
+    const users = read(K.users, []);
+    const user = users.find((u) => u.id === id);
+    if (!user) throw new Error('This reset link is invalid or has expired.');
+    user.passwordHash = await sha256(password);
+    write(K.users, users);
+    return true;
   },
 
   /* ----- catalog (admin-managed copy) ----- */

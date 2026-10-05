@@ -298,3 +298,52 @@ body{animation:page-in .5s ease both}
 @media(prefers-reduced-motion:reduce){
   .auth-modal{animation:none}
 }
+
+/* ---------- auth pages ---------- */
+.nav-actions .nav-action-link{font-size:14px;font-weight:700}
+.auth-page{display:grid;grid-template-columns:minmax(360px,42%) 1fr;min-height:calc(100dvh - 81px)}
+.auth-side{background:#163638;color:#eef3e6;padding:clamp(32px,4vw,64px);display:flex;flex-direction:column;justify-content:space-between;gap:36px;position:relative;overflow:hidden}
+.auth-side:before{content:'';position:absolute;width:520px;height:520px;border-radius:50%;background:#9fd15122;top:-170px;right:-170px}
+.auth-side .logo{color:#fff;position:relative;z-index:1}
+.auth-side .logo-img{background:#f7f8f4;border-radius:50%;padding:7px}
+.auth-side .eyebrow{color:#b9d189;position:relative;z-index:1}
+.auth-side h2{font-size:clamp(34px,3.4vw,52px);line-height:1.08;letter-spacing:-.05em;margin:16px 0 30px;position:relative;z-index:1}
+.auth-side h2 em{color:#dceaae}
+.auth-perks{list-style:none;margin:0;padding:0;display:grid;gap:20px;position:relative;z-index:1}
+.auth-perks li{display:flex;gap:14px;align-items:flex-start;color:#c3d2bf;font-size:15px;line-height:1.55}
+.auth-perks strong{display:block;color:#fff}
+.auth-perks .tick{display:grid;place-items:center;width:26px;height:26px;flex:none;border-radius:50%;background:#dceaae;color:#193531;font-size:14px;font-weight:800}
+.auth-side .fineprint{color:#93a894;position:relative;z-index:1}
+.auth-main{display:flex;align-items:center;justify-content:center;padding:clamp(36px,5vw,72px) clamp(22px,5vw,72px)}
+.auth-form-card{width:min(480px,100%)}
+.auth-form-card h1{font-size:clamp(30px,3vw,40px);letter-spacing:-.05em;margin:0 0 10px}
+.auth-form-card .lede{color:#5e7569;line-height:1.65;margin:0 0 28px}
+.auth-submit{width:100%;justify-content:center;margin-top:6px}
+.auth-alt{margin:26px 0 0;text-align:center;font-size:14px;color:#5e7569}
+.auth-alt a{font-weight:800;text-decoration:underline;text-underline-offset:3px}
+.demo-note{margin-top:22px;text-align:center}
+.form-row{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:2px 0 20px;font-size:14px}
+.form-row a{font-weight:700;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+.form-row .check{margin-bottom:0}
+.check{display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:14px;color:#3c554b;margin-bottom:16px}
+.check input{width:17px;height:17px;flex:none;margin-top:2px;accent-color:#173b39}
+.check span{line-height:1.6;font-size:13.5px}
+.check a{text-decoration:underline;text-underline-offset:2px;font-weight:700}
+.field .field-error{display:block;font-style:normal;font-size:13px;color:#b42318;font-weight:600;margin-top:6px}
+.field.invalid input{border-color:#d92d20}
+.field .opt{font-style:normal;text-transform:none;letter-spacing:0;font-weight:400;color:#8a9a90}
+.pw-wrap{position:relative}
+.pw-wrap input{padding-right:72px}
+.pw-toggle{position:absolute;right:6px;top:50%;transform:translateY(-50%);border:0;background:none;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#5e7569;padding:10px}
+.pw-meter{display:flex;gap:6px;margin:-6px 0 18px}
+.pw-meter i{height:4px;flex:1;background:#dde4da;border-radius:2px;transition:background .25s}
+.pw-meter[data-level="1"] i:nth-child(-n+1){background:#d92d20}
+.pw-meter[data-level="2"] i:nth-child(-n+2){background:#e8730c}
+.pw-meter[data-level="3"] i:nth-child(-n+3){background:#a4bd5a}
+.pw-meter[data-level="4"] i:nth-child(-n+4){background:#3d7a44}
+.auth-success{text-align:center;padding:24px 0}
+.auth-success .big-tick{display:grid;place-items:center;width:64px;height:64px;margin:0 auto 20px;border-radius:50%;background:#dceaae;color:#193531;font-size:28px;font-weight:800}
+.auth-success h1{margin-bottom:10px}
+.narrow-page{padding:70px 0 110px}
+@media(max-width:900px){.auth-page{grid-template-columns:1fr;min-height:0}.auth-side{padding:36px 24px}.auth-side h2{margin-bottom:22px}.auth-perks{grid-template-columns:1fr 1fr}.auth-main{padding:44px 22px}}
+@media(max-width:560px){.auth-perks{grid-template-columns:1fr}}
