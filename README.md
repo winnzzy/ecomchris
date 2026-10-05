@@ -23,6 +23,18 @@ The supplied checklist asks for the DBA on the home page, actual product/service
 
 The bag is device-local and cannot place an order. It communicates this in the interface. No card fields or fake checkout are present.
 
+## Accounts, checkout & admin panel
+
+The store now includes full customer accounts and an admin console:
+
+- **Signup / login** — header "Account" button opens the auth dialog; sessions persist. Customers get an `/account` page with order history.
+- **Checkout** — bag → `/checkout` (login required) → shipping address → order placed. Online payment is not live yet (pending bank/payment-gateway approval), so checkout notes that the store will contact the customer to arrange payment.
+- **Admin console** — `/admin` (linked in the footer). Dashboard (revenue, orders, products, customers), product management (add/edit/delete), order status management, and customer list.
+
+**Two modes:** without Supabase keys the site runs on a local demo backend (browser storage) with seeded demo data — everything above is fully clickable right now. Demo admin access: `admin@socyncrest.com` / `Crest2026!`.
+
+**Going live with Supabase:** create a project at supabase.com, run `supabase/schema.sql` in the SQL editor, copy `.env.example` to `.env` with your project URL and anon key, make your user admin (`update profiles set is_admin = true where email = 'you@example.com'`), rebuild and deploy. The site switches to Supabase automatically — no code changes.
+
 ## Architecture notes (built to grow)
 
 The front end is structured so it can evolve into a full e-commerce store with an admin panel without a rewrite:
@@ -34,8 +46,9 @@ The front end is structured so it can evolve into a full e-commerce store with a
 
 ## Roadmap to full e-commerce
 
-1. **Backend** — products/inventory API, then `src/api.js` switches from local config to `fetch()`.
-2. **Checkout** — integrate the payment gateway (post-bank-approval); replace the bag drawer's "coming soon" note with real checkout.
-3. **Accounts** — sign-in, order history, saved addresses; cart sync moves server-side in `src/store.js`.
-4. **Admin panel** — build the real console at `/admin`: product/inventory management, order fulfillment, returns handling, and content editing.
-5. **Real photography** — replace Unsplash placeholders with licensed product photos before launch.
+1. ~~**Backend** — products/inventory API, then `src/api.js` switches from local config to `fetch()`.~~ **Done** — `src/backend/` (local demo + Supabase adapters, same interface).
+2. ~~**Accounts** — sign-in, order history.~~ **Done** — auth dialog, `/account` page.
+3. ~~**Admin panel** — product/inventory management, order fulfillment.~~ **Done** — `/admin` console (dashboard, products, orders, customers).
+4. **Checkout** — partially done (order placement works); integrate the payment gateway (post-bank-approval) for live card payments.
+5. **Unify catalog** — serve the storefront product grid from the backend products table (single source of truth) instead of the local config.
+6. **Real photography** — replace Unsplash placeholders with licensed product photos before launch.
