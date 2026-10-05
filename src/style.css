@@ -158,3 +158,143 @@ body{animation:page-in .5s ease both}
   .product-card.pop-in{animation:none}
   #bag-count.bump{animation:none}
 }
+
+/* ============ AUTH / ACCOUNT / CHECKOUT / ADMIN ============ */
+
+/* Auth modal */
+.auth-modal{max-width:440px;padding:clamp(28px,5vw,44px)}
+.auth-inner{display:flex;flex-direction:column}
+.auth-logo{height:44px;margin:6px auto 20px}
+.auth-tabs{display:flex;background:#e8eddd;border-radius:6px;padding:4px;margin-bottom:24px}
+.auth-tabs button{flex:1;border:0;background:transparent;padding:12px;font-weight:700;font-size:14px;border-radius:4px;color:#5e7569}
+.auth-tabs button.active{background:#f7f8f4;color:#163638;box-shadow:0 2px 8px #16363822}
+.field{display:flex;flex-direction:column;gap:8px;margin-bottom:16px;text-align:left}
+.field>span{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#5e7569}
+.field>span em{font-style:normal;text-transform:none;letter-spacing:0;font-weight:400}
+.field input,.field select,.field textarea{font:inherit;font-size:15px;padding:13px 15px;border:1px solid #b8c6b6;border-radius:3px;background:#fff;color:#132a2d;width:100%}
+.field input:focus,.field select:focus,.field textarea:focus{outline:3px solid #9fd151;outline-offset:2px}
+.field.check span{display:flex;align-items:center;gap:10px;text-transform:none;letter-spacing:0;font-size:14px}
+.field.check input{width:auto}
+.form-error{background:#fee2e2;color:#991b1b;padding:12px 16px;border-radius:4px;font-size:14px;line-height:1.5;margin:0 0 16px}
+.auth-submit{width:100%;justify-content:center;margin-top:4px}
+.fineprint{font-size:12px;color:#75857b;line-height:1.6}
+.auth-note{margin:18px 0 0;text-align:center}
+.demo-hint{background:#e8eddd;border-radius:4px;padding:12px 16px;margin-top:18px;text-align:center}
+
+/* Account page */
+.account{padding-bottom:120px}
+.auth-card{background:#fff;border:1px solid #e2e8dd;border-radius:12px;padding:clamp(36px,5vw,64px);max-width:560px;margin:20px auto;text-align:center;box-shadow:0 24px 60px #16363814}
+.auth-card h2{font-size:clamp(26px,3.4vw,36px);letter-spacing:-.04em;margin:0 0 12px}
+.auth-card p{color:#5e7569;line-height:1.7;margin-bottom:26px}
+.account-grid{display:grid;grid-template-columns:280px 1fr;gap:32px;align-items:start}
+.account-side{background:#fff;border:1px solid #e2e8dd;border-radius:12px;padding:32px;text-align:center}
+.avatar{width:72px;height:72px;border-radius:50%;background:#173639;color:#dceaae;display:grid;place-items:center;font-size:30px;font-weight:800;margin:0 auto 16px;font-family:Manrope,sans-serif}
+.account-side h2{font-size:22px;margin:0 0 4px}
+.account-side p{color:#75857b;font-size:14px;margin:0 0 22px;word-break:break-all}
+.account-main h2{font-size:24px;letter-spacing:-.03em;margin:0 0 18px}
+.orders-list{display:grid;gap:14px}
+.order-card{background:#fff;border:1px solid #e2e8dd;border-radius:8px;padding:20px 22px}
+.order-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.order-top>div{display:flex;flex-direction:column}
+.order-top>div span{font-size:12px;color:#75857b}
+.order-top strong:last-child{margin-left:auto;font-size:18px}
+.order-card ul{margin:14px 0 0;padding:0;list-style:none;border-top:1px solid #eef2ea;padding-top:12px}
+.order-card li{font-size:14px;color:#5e7569;padding:3px 0}
+
+/* Status pills */
+.status{display:inline-block;padding:5px 12px;border-radius:50px;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.status-pending{background:#fef3c7;color:#92400e}
+.status-processing{background:#dbeafe;color:#1e40af}
+.status-shipped{background:#ede9fe;color:#5b21b6}
+.status-delivered{background:#dcfce7;color:#166534}
+.status-cancelled{background:#fee2e2;color:#991b1b}
+.status-hidden{background:#e5e7eb;color:#4b5563}
+
+/* Checkout */
+.checkout-grid{display:grid;grid-template-columns:1fr 380px;gap:40px;padding-bottom:120px;align-items:start}
+.checkout-form h2{font-size:22px;letter-spacing:-.03em;margin:0 0 18px}
+.checkout-form h2:not(:first-child){margin-top:36px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-row3{display:grid;grid-template-columns:2fr 1fr 1fr;gap:14px}
+.pay-note{background:#e8eddd;border-radius:6px;padding:16px 18px;font-size:14px;line-height:1.65;color:#3a5748}
+.order-summary{background:#fff;border:1px solid #e2e8dd;border-radius:12px;padding:28px;position:sticky;top:110px}
+.order-summary h2{font-size:20px;margin:0 0 16px}
+.order-summary ul{list-style:none;margin:0 0 16px;padding:0;border-bottom:1px solid #eef2ea}
+.order-summary li{display:flex;justify-content:space-between;gap:12px;font-size:14px;padding:7px 0;color:#3a5748}
+.sum-line{display:flex;justify-content:space-between;font-size:14px;color:#5e7569;padding:4px 0}
+.sum-line.total{font-size:18px;color:#132a2d;border-top:1px solid #e2e8dd;margin-top:10px;padding-top:14px}
+.success-card{background:#fff;border:1px solid #e2e8dd;border-radius:12px;padding:clamp(40px,6vw,72px);max-width:620px;margin:20px auto 120px;text-align:center}
+.big-check{display:grid;place-items:center;width:76px;height:76px;border-radius:50%;background:#dcfce7;color:#166534;font-size:36px;margin:0 auto 22px}
+.success-card h2{font-size:clamp(28px,4vw,40px);letter-spacing:-.04em;margin:0 0 12px}
+.success-card p{color:#5e7569;line-height:1.7}
+.success-actions{display:flex;gap:16px;justify-content:center;align-items:center;margin-top:28px;flex-wrap:wrap}
+
+/* Admin shell */
+.admin-shell{display:grid;grid-template-columns:250px 1fr;min-height:calc(100vh - 120px);background:#f4f6f1}
+.admin-side{background:#102d30;color:#dfe9df;padding:28px 18px;display:flex;flex-direction:column;gap:8px;position:sticky;top:0;height:100vh}
+.admin-side .logo{margin-bottom:26px}
+.admin-side .logo-img{height:36px}
+.admin-side .logo span{color:#fff;font-size:12px}
+.admin-side nav{display:flex;flex-direction:column;gap:4px}
+.admin-side nav button{border:0;background:transparent;color:#a9bfae;text-align:left;padding:13px 16px;border-radius:6px;font-weight:700;font-size:14px;transition:.2s}
+.admin-side nav button:hover{background:#ffffff14;color:#fff}
+.admin-side nav button.active{background:#dceaae;color:#143534}
+.admin-side-foot{margin-top:auto;display:flex;flex-direction:column;gap:12px}
+.mode-pill{align-self:flex-start;background:#ffffff1c;padding:6px 12px;border-radius:50px;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.admin-side-foot button{border:1px solid #ffffff2c;background:transparent;color:#dfe9df;padding:11px;border-radius:6px;font-weight:700;font-size:13px}
+.admin-side-foot button:hover{background:#ffffff14}
+.admin-main{padding:clamp(24px,4vw,48px);min-width:0}
+.admin-main h2{font-size:24px;letter-spacing:-.03em;margin:0 0 18px}
+.loading{color:#75857b;padding:40px 0}
+
+/* Dashboard cards */
+.dash-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:36px}
+.dash-card{background:#fff;border:1px solid #e2e8dd;border-radius:10px;padding:22px}
+.dash-card span{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#75857b}
+.dash-card strong{display:block;font-size:32px;font-family:Manrope,sans-serif;letter-spacing:-.03em;margin-top:8px}
+
+/* Data tables */
+.table-wrap{overflow-x:auto;background:#fff;border:1px solid #e2e8dd;border-radius:10px}
+.data-table{width:100%;border-collapse:collapse;font-size:14px;min-width:640px}
+.data-table th{text-align:left;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#75857b;padding:14px 16px;border-bottom:1px solid #e2e8dd;background:#fafbf8}
+.data-table td{padding:14px 16px;border-bottom:1px solid #eef2ea;vertical-align:middle}
+.data-table tr:last-child td{border-bottom:0}
+.data-table small{color:#75857b}
+.data-table select{font:inherit;font-size:13px;padding:8px 10px;border:1px solid #b8c6b6;border-radius:4px;background:#fff}
+.thumb{width:52px;height:62px;object-fit:cover;border-radius:4px}
+.row-actions{white-space:nowrap}
+.row-actions button{border:1px solid #b8c6b6;background:#fff;padding:8px 14px;border-radius:4px;font-size:13px;font-weight:700;margin-right:8px}
+.row-actions button:hover{background:#e8eddd}
+.row-actions button.danger{color:#991b1b;border-color:#f3c1c1}
+.row-actions button.danger:hover{background:#fee2e2}
+.count-pill{display:inline-block;background:#e8eddd;border-radius:50px;padding:4px 12px;font-size:13px;font-weight:800;vertical-align:middle}
+
+/* Admin toolbar + product form */
+.admin-toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:12px}
+.product-form{background:#fff;border:1px solid #e2e8dd;border-radius:10px;padding:28px;margin-bottom:24px}
+.form-actions{display:flex;gap:12px;margin-top:8px;flex-wrap:wrap}
+.button-ghost{background:transparent;color:#163638;border:1px solid #b8c6b6}
+.button-ghost:hover{background:#e8eddd}
+
+/* Account button in header */
+#account-trigger{max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+@media(max-width:900px){
+  .checkout-grid{grid-template-columns:1fr}
+  .order-summary{position:static}
+  .account-grid{grid-template-columns:1fr}
+  .admin-shell{grid-template-columns:1fr}
+  .admin-side{position:static;height:auto;flex-direction:row;flex-wrap:wrap;align-items:center;padding:16px}
+  .admin-side .logo{margin:0 auto 0 0}
+  .admin-side nav{flex-direction:row;flex-wrap:wrap}
+  .admin-side-foot{margin:0 0 0 auto;flex-direction:row;align-items:center}
+  .dash-cards{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:650px){
+  .form-row,.form-row3{grid-template-columns:1fr}
+  .dash-cards{grid-template-columns:1fr 1fr;gap:12px}
+  .auth-modal{width:calc(100vw - 30px)}
+}
+@media(prefers-reduced-motion:reduce){
+  .auth-modal{animation:none}
+}
