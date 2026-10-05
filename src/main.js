@@ -27,30 +27,7 @@ const productCard = p => `<article class="product-card" data-category="${esc(p.c
 
 const footer = `<footer class="footer"><div class="wrap footer-grid"><div><a class="logo footer-logo" href="/" aria-label="Socyn Crest home"><img class="logo-img" src="${LOGO_MARK}" alt="Socyn Crest logo"/><span>SOCYN CREST</span></a><p>Clothing & textiles, chosen with care.</p><small>Operated by ${business.legalName}</small></div><div><h4>Explore</h4><a href="/shop">Shop all</a><a href="/shop#Men">Men</a><a href="/shop#Women">Women</a><a href="/shop#Outerwear">Outerwear</a><a href="/contact">Contact</a></div><div><h4>Customer care</h4><a href="/shipping">Shipping policy</a><a href="/returns">Cancellation & refunds</a><a href="/privacy">Privacy policy</a><a href="/terms">Terms & conditions</a></div></div><div class="wrap footer-bottom"><span>© ${new Date().getFullYear()} ${business.legalName}. All rights reserved.</span><span class="footer-fine"><span>Clothing & textiles for every day.</span><a href="/admin">Admin</a></span></div></footer>`;
 
-const header = `<div class="announcement"><span id="announce-text">Clothing & textiles · The new season collection</span><span aria-hidden="true"> ✦</span></div><header class="site-header"><div class="wrap nav"><a class="logo" href="/" aria-label="Socyn Crest home"><img class="logo-img" src="${LOGO_MARK}" alt="Socyn Crest logo"/><span>SOCYN CREST</span></a><nav class="desktop-nav" aria-label="Main navigation"><a href="/" ${slug==='/'?'aria-current="page"':''}>Home</a><a href="/shop" ${slug==='/shop'?'aria-current="page"':''}>Shop</a><a href="/contact" ${slug==='/contact'?'aria-current="page"':''}>Contact</a></nav><div class="nav-actions"><button id="account-trigger" aria-label="Account">Account</button><button id="bag-trigger" aria-label="Open bag">Bag <span id="bag-count">0</span></button><button id="menu-trigger" class="menu-trigger" aria-expanded="false" aria-controls="mobile-nav" aria-label="Toggle menu"><span></span><span></span></button></div></div><nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation" hidden><a href="/">Home</a><a href="/shop">Shop</a><a href="/account">Account</a><a href="/contact">Contact</a><a href="/shipping">Shipping</a><a href="/returns">Returns</a></nav></header>`;
-
-const authModalHtml = `
-<div class="modal auth-modal" id="auth-modal" role="dialog" aria-modal="true" aria-label="Account" hidden>
-  <button class="modal-close close" aria-label="Close account dialog">×</button>
-  <div class="auth-inner">
-    <img class="logo-img auth-logo" src="${LOGO_MARK}" alt="Socyn Crest logo"/>
-    <div class="auth-tabs" role="tablist"><button data-authtab="signin" class="active" role="tab" aria-selected="true">Sign in</button><button data-authtab="signup" role="tab" aria-selected="false">Create account</button></div>
-    <form id="signin-form" novalidate>
-      <label class="field"><span>Email</span><input type="email" name="email" required autocomplete="email" placeholder="you@example.com"/></label>
-      <label class="field"><span>Password</span><input type="password" name="password" required autocomplete="current-password" placeholder="••••••••"/></label>
-      <p class="form-error" role="alert" hidden></p>
-      <button class="button button-dark auth-submit" type="submit">Sign in</button>
-    </form>
-    <form id="signup-form" hidden novalidate>
-      <label class="field"><span>Full name</span><input type="text" name="name" required autocomplete="name" placeholder="Jane Doe"/></label>
-      <label class="field"><span>Email</span><input type="email" name="email" required autocomplete="email" placeholder="you@example.com"/></label>
-      <label class="field"><span>Password <em>(6+ characters)</em></span><input type="password" name="password" required autocomplete="new-password" placeholder="••••••••"/></label>
-      <p class="form-error" role="alert" hidden></p>
-      <button class="button button-dark auth-submit" type="submit">Create account</button>
-    </form>
-    <p class="fineprint auth-note" id="auth-mode-note"></p>
-  </div>
-</div>`;
+const header = `<div class="announcement"><span id="announce-text">Clothing & textiles · The new season collection</span><span aria-hidden="true"> ✦</span></div><header class="site-header"><div class="wrap nav"><a class="logo" href="/" aria-label="Socyn Crest home"><img class="logo-img" src="${LOGO_MARK}" alt="Socyn Crest logo"/><span>SOCYN CREST</span></a><nav class="desktop-nav" aria-label="Main navigation"><a href="/" ${slug==='/'?'aria-current="page"':''}>Home</a><a href="/shop" ${slug==='/shop'?'aria-current="page"':''}>Shop</a><a href="/contact" ${slug==='/contact'?'aria-current="page"':''}>Contact</a></nav><div class="nav-actions"><a id="account-trigger" class="nav-action-link" href="/signin">Sign in</a><button id="bag-trigger" aria-label="Open bag">Bag <span id="bag-count">0</span></button><button id="menu-trigger" class="menu-trigger" aria-expanded="false" aria-controls="mobile-nav" aria-label="Toggle menu"><span></span><span></span></button></div></div><nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation" hidden><a href="/">Home</a><a href="/shop">Shop</a><a id="mobile-account" href="/signin">Sign in</a><a href="/contact">Contact</a><a href="/shipping">Shipping</a><a href="/returns">Returns</a></nav></header>`;
 
 const catTiles = [
   {name:'Men', image:'photo-1576566588028-4147f3842f27', blurb:'Tees, denim & staples'},
@@ -278,7 +255,7 @@ async function adminCustomersView(backend){
 }
 
 function policy(kind){const data={
-  '/privacy': ['Privacy policy',`<h2>Information we collect</h2><p>When you browse our site, contact us, create an account, or place an order, we may collect your name, email address, phone number, shipping and billing addresses, and order details. If you pay online, your payment information is processed securely by our payment provider — we do not see or store your full card number.</p><h2>How we use your information</h2><p>We use your information to process and deliver orders, manage your account, respond to inquiries, provide customer support, send order updates, improve our website, and meet our legal and tax obligations. We do not sell your personal information to third parties.</p><h2>Accounts</h2><p>If you create an account, we store your profile details and order history so you can track purchases and check out faster. You may request deletion of your account and associated data at any time by contacting us.</p><h2>Cookies and similar technologies</h2><p>We use a small amount of browser storage to remember the items in your shopping bag and keep you signed in on your own device. We do not use advertising cookies. Product images are served by our image host, which may receive basic technical request data when images load.</p><h2>How we share information</h2><p>We share information only as needed to run the store: with payment processors to take payments, with shipping carriers (USPS, UPS, and FedEx) to deliver orders, and with authorities when required by law. We never share your information with third parties for their own marketing.</p><h2>Data security</h2><p>We use reasonable administrative and technical safeguards to protect your information, including secure (HTTPS) connections throughout the site. No method of transmission over the internet is completely secure, so we cannot guarantee absolute security.</p><h2>Your choices and rights</h2><p>You may ask us to access, correct, or delete your personal information, subject to applicable law. To make a request, contact us using the details on our <a href="/contact">contact page</a>. You can clear your saved bag at any time through your browser settings.</p><h2>Children's privacy</h2><p>Our website is not directed to children under 13, and we do not knowingly collect their personal information.</p><h2>Changes to this policy</h2><p>We may update this policy from time to time. The latest version will always be posted on this page with its effective date.</p>`],
+  '/privacy': ['Privacy policy',`<h2>Information we collect</h2><p>When you browse our site, contact us, create an account, or place an order, we may collect your name, email address, phone number, shipping and billing addresses, and order details. If you pay online, your payment information is processed securely by our payment provider — we do not see or store your full card number.</p><h2>How we use your information</h2><p>We use your information to process and deliver orders, manage your account, respond to inquiries, provide customer support, send order updates, send marketing emails where you have opted in (you can unsubscribe at any time), improve our website, and meet our legal and tax obligations. We do not sell your personal information to third parties.</p><h2>Accounts</h2><p>If you create an account, we store your profile details (name, email, and phone number if provided) and order history so you can track purchases and check out faster. You may request deletion of your account and associated data at any time by contacting us.</p><h2>Cookies and similar technologies</h2><p>We use a small amount of browser storage to remember the items in your shopping bag and keep you signed in on your own device. We do not use advertising cookies. Product images are served by our image host, which may receive basic technical request data when images load.</p><h2>How we share information</h2><p>We share information only as needed to run the store: with payment processors to take payments, with shipping carriers (USPS, UPS, and FedEx) to deliver orders, and with authorities when required by law. We never share your information with third parties for their own marketing.</p><h2>Data security</h2><p>We use reasonable administrative and technical safeguards to protect your information, including secure (HTTPS) connections throughout the site. No method of transmission over the internet is completely secure, so we cannot guarantee absolute security.</p><h2>Your choices and rights</h2><p>You may ask us to access, correct, or delete your personal information, subject to applicable law. To make a request, contact us using the details on our <a href="/contact">contact page</a>. You can clear your saved bag at any time through your browser settings.</p><h2>Children's privacy</h2><p>Our website is not directed to children under 13, and we do not knowingly collect their personal information.</p><h2>Changes to this policy</h2><p>We may update this policy from time to time. The latest version will always be posted on this page with its effective date.</p>`],
   '/terms': ['Terms & conditions',`<h2>Welcome</h2><p>These Terms & Conditions govern your use of the Socyn Crest website, operated by ${business.legalName} (“Socyn Crest”, “we”, “us”). By using this site, you agree to these terms.</p><h2>Products and pricing</h2><p>We sell clothing and textiles. Product descriptions and prices are shown in U.S. dollars (USD). We work hard to keep information accurate, but if an error occurs — for example, a mispriced item — we may correct it and cancel affected orders with a full refund.</p><h2>Accounts</h2><p>You may create an account to place orders and track them. You are responsible for keeping your password confidential and for activity under your account. We may suspend accounts used fraudulently or abusively.</p><h2>Orders and acceptance</h2><p>Placing an order is an offer to buy. We accept your offer when we confirm it by email. We may decline or cancel an order at any time — for example, if an item is out of stock or we suspect fraud — and will refund any payment taken.</p><h2>Payments</h2><p>Payments are processed securely through our third-party payment provider. We never see or store your full payment card number.</p><h2>Shipping, cancellations, and refunds</h2><p>See our <a href="/shipping">Shipping Policy</a> and <a href="/returns">Cancellation & Refund Policy</a> for processing times, delivery estimates, and return terms. Those policies form part of these terms.</p><h2>Intellectual property</h2><p>All text, images, logos (including the Socyn Crest mark), and designs on this site belong to ${business.legalName} or its licensors and may not be copied or reused without permission.</p><h2>Acceptable use</h2><p>You agree not to misuse this site — for example, by attempting to disrupt it, placing fraudulent orders, or submitting false information.</p><h2>Limitation of liability</h2><p>To the fullest extent permitted by law, ${business.legalName} is not liable for indirect, incidental, or consequential damages arising from your use of this site or our products, except where such a limitation is prohibited by law. Our total liability for any claim is limited to the amount you paid for the product in question.</p><h2>Governing law</h2><p>These terms are governed by the laws of the state in which ${business.legalName} is organized, without regard to conflict-of-law principles.</p><h2>Changes to these terms</h2><p>We may update these terms as our store grows. Continued use of the site after changes take effect means you accept the updated terms.</p><h2>Contact</h2><p>Questions about these terms? Reach us through our <a href="/contact">contact page</a>.</p>`],
   '/returns': ['Cancellation & refund policy',`<h2>Cancelling an order</h2><p>You may cancel your order within 24 hours of placing it, provided it has not yet shipped. To cancel, contact us with your order number. Cancelled orders are refunded in full to the original payment method.</p><h2>Our 30-day return promise</h2><p>If you're not happy with your purchase, you may return unused, unworn items in their original condition — with tags attached and in original packaging — within 30 days of delivery for a refund. Items marked as final sale cannot be returned.</p><h2>How to start a return</h2><p>Contact us with your order number and the items you'd like to return. We'll confirm eligibility and share return instructions, including where to send the items. Customers are responsible for return shipping unless the item arrived damaged, defective, or incorrect.</p><h2>Refund timing</h2><p>Once we receive and inspect your return, approved refunds are issued to the original payment method within 10 business days. Depending on your bank or card issuer, it may take a few additional days for the refund to appear on your statement.</p><h2>Damaged, defective, or wrong items</h2><p>Something wrong with your order? Contact us within 7 days of delivery with your order number and a photo of the issue. We'll make it right with a replacement or a full refund — including return shipping on us.</p><h2>Non-refundable costs</h2><p>Original shipping charges are non-refundable unless the return is due to our error.</p>`],
   '/shipping': ['Shipping policy',`<h2>Where we ship</h2><p>We currently ship to all 50 U.S. states. International shipping is coming soon — contact us if you're ordering from outside the U.S. and we'll do our best to help.</p><h2>Processing time</h2><p>Orders are processed within 2–3 business days (Monday–Friday, excluding public holidays). You'll receive a confirmation email as soon as your order ships.</p><h2>Shipping methods and delivery times</h2><p>We ship with trusted carriers including USPS, UPS, and FedEx:</p><ul><li><strong>Standard shipping (5–7 business days):</strong> $5.95, or FREE on orders over $75</li><li><strong>Express shipping (2–3 business days):</strong> $14.95</li></ul><p>Delivery estimates are counted from the ship date, not the order date.</p><h2>Tracking your order</h2><p>Every order includes tracking. We'll email your tracking number as soon as your order leaves our facility so you can follow it door to door.</p><h2>Shipping address</h2><p>Please double-check your shipping address at checkout — we can't reroute packages once they've shipped. If you notice a mistake, contact us immediately and we'll try to help before dispatch.</p><h2>Delays and lost packages</h2><p>Carriers occasionally experience delays beyond our control, especially during peak seasons or severe weather. If your tracking hasn't updated within 7 days past the estimated delivery date, contact us and we'll investigate with the carrier.</p><h2>Questions</h2><p>See our <a href="/contact">contact page</a> — we're happy to help with anything about your delivery.</p>`]
@@ -286,19 +263,295 @@ function policy(kind){const data={
 
 function notFound(){return `${title('Page not found.','404')}<section class="wrap not-found"><p>We couldn’t find that page.</p><a class="button button-dark" href="/">Back to home</a></section>`}
 
+/* ==================== AUTH PAGES ==================== */
+const emailOk=(v)=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v||'');
+function safeNext(){const n=new URLSearchParams(location.search).get('next');return n&&n.startsWith('/')&&!n.startsWith('//')?n:''}
+function nextQuery(){const n=safeNext();return n?`?next=${encodeURIComponent(n)}`:''}
+
+function authShell(inner){
+  return `<section class="auth-page">
+    <aside class="auth-side">
+      <a class="logo" href="/" aria-label="Socyn Crest home"><img class="logo-img" src="${LOGO_MARK}" alt=""/><span>SOCYN CREST</span></a>
+      <div>
+        <p class="eyebrow">Socyn Crest account</p>
+        <h2>One account.<br/><em>Every order, tracked.</em></h2>
+        <ul class="auth-perks">
+          <li><span class="tick">✓</span><span><strong>Free shipping</strong> on all orders over $75</span></li>
+          <li><span class="tick">✓</span><span><strong>30-day returns</strong> — no questions asked</span></li>
+          <li><span class="tick">✓</span><span><strong>Order tracking</strong> from our door to yours</span></li>
+        </ul>
+      </div>
+      <p class="fineprint">Clothing &amp; textiles, chosen with care.</p>
+    </aside>
+    <div class="auth-main"><div class="auth-form-card">${inner}</div></div>
+  </section>`;
+}
+
+function signin(){
+  const nq=nextQuery();
+  return authShell(`
+    <h1>Sign in</h1>
+    <p class="lede">Welcome back — track your orders, check out faster, and manage your details.</p>
+    <form id="signin-form" novalidate>
+      <label class="field"><span>Email address</span>
+        <input type="email" name="email" required autocomplete="email" placeholder="you@example.com"/>
+        <em class="field-error" hidden></em></label>
+      <label class="field"><span>Password</span>
+        <div class="pw-wrap"><input type="password" name="password" required autocomplete="current-password" placeholder="••••••••"/>
+        <button type="button" class="pw-toggle" data-toggle-pw aria-label="Show password">Show</button></div>
+        <em class="field-error" hidden></em></label>
+      <div class="form-row">
+        <label class="check"><input type="checkbox" name="remember" checked/><span>Remember me</span></label>
+        <a href="/forgot-password">Forgot password?</a>
+      </div>
+      <p class="form-error" role="alert" hidden></p>
+      <button class="button button-dark auth-submit" type="submit">Sign in</button>
+    </form>
+    <p class="auth-alt">New to Socyn Crest? <a href="/signup${nq}">Create an account</a></p>
+    <p class="fineprint demo-note" data-demo-note hidden></p>`);
+}
+
+function signup(){
+  const nq=nextQuery();
+  return authShell(`
+    <h1>Create your account</h1>
+    <p class="lede">Join Socyn Crest for faster checkout, order tracking, and early access to new arrivals.</p>
+    <form id="signup-form" novalidate>
+      <label class="field"><span>Full name</span>
+        <input type="text" name="name" required autocomplete="name" placeholder="Jane Doe"/>
+        <em class="field-error" hidden></em></label>
+      <label class="field"><span>Email address</span>
+        <input type="email" name="email" required autocomplete="email" placeholder="you@example.com"/>
+        <em class="field-error" hidden></em></label>
+      <label class="field"><span>Phone <em class="opt">(optional)</em></span>
+        <input type="tel" name="phone" autocomplete="tel" placeholder="(555) 123-4567"/>
+        <em class="field-error" hidden></em></label>
+      <label class="field"><span>Password <em>(8+ characters)</em></span>
+        <div class="pw-wrap"><input type="password" name="password" required minlength="8" autocomplete="new-password" placeholder="••••••••" data-pw-meter/>
+        <button type="button" class="pw-toggle" data-toggle-pw aria-label="Show password">Show</button></div>
+        <em class="field-error" hidden></em></label>
+      <div class="pw-meter" data-meter aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      <label class="field"><span>Confirm password</span>
+        <input type="password" name="confirm" required autocomplete="new-password" placeholder="••••••••"/>
+        <em class="field-error" hidden></em></label>
+      <label class="check"><input type="checkbox" name="terms"/>
+        <span>I agree to the <a href="/terms">Terms &amp; Conditions</a> and <a href="/privacy">Privacy Policy</a>.</span></label>
+      <label class="check"><input type="checkbox" name="marketing" checked/>
+        <span>Email me about new arrivals and offers.</span></label>
+      <p class="form-error" role="alert" hidden></p>
+      <button class="button button-dark auth-submit" type="submit">Create account</button>
+    </form>
+    <p class="auth-alt">Already have an account? <a href="/signin${nq}">Sign in</a></p>
+    <p class="fineprint demo-note" data-demo-note hidden></p>`);
+}
+
+async function forgotPassword(){
+  const be=await getBackend();
+  const inner = be.mode==='demo'
+    ? `<h1>Reset password</h1>
+       <p class="lede">Password reset emails aren't available in demo mode — accounts here live only in this browser. Once Socyn Crest is connected to its production backend, reset emails work normally.</p>
+       <a class="button button-dark auth-submit" href="/signin">Back to sign in</a>`
+    : `<h1>Reset your password</h1>
+       <p class="lede">Enter the email address you signed up with and we'll send you a link to set a new password.</p>
+       <form id="forgot-form" novalidate>
+         <label class="field"><span>Email address</span>
+           <input type="email" name="email" required autocomplete="email" placeholder="you@example.com"/>
+           <em class="field-error" hidden></em></label>
+         <p class="form-error" role="alert" hidden></p>
+         <button class="button button-dark auth-submit" type="submit">Send reset link</button>
+       </form>
+       <p class="auth-alt"><a href="/signin">Back to sign in</a></p>`;
+  return `<section class="wrap narrow-page"><div class="auth-card">${inner}</div></section>`;
+}
+
+async function resetPassword(){
+  const be=await getBackend();
+  let inner;
+  if(be.mode==='demo'){
+    inner=`<h1>Set a new password</h1><p class="lede">Password reset by email needs the production backend.</p><a class="button button-dark auth-submit" href="/signin">Back to sign in</a>`;
+  }else{
+    inner=`<h1>Set a new password</h1>
+      <p class="lede">Choose a new password for your Socyn Crest account.</p>
+      <div id="reset-verify"><p class="lede">Checking your reset link…</p></div>
+      <form id="reset-form" hidden novalidate>
+        <label class="field"><span>New password <em>(8+ characters)</em></span>
+          <div class="pw-wrap"><input type="password" name="password" required minlength="8" autocomplete="new-password" placeholder="••••••••" data-pw-meter/>
+          <button type="button" class="pw-toggle" data-toggle-pw aria-label="Show password">Show</button></div>
+          <em class="field-error" hidden></em></label>
+        <div class="pw-meter" data-meter aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+        <label class="field"><span>Confirm new password</span>
+          <input type="password" name="confirm" required autocomplete="new-password" placeholder="••••••••"/>
+          <em class="field-error" hidden></em></label>
+        <p class="form-error" role="alert" hidden></p>
+        <button class="button button-dark auth-submit" type="submit">Set new password</button>
+      </form>
+      <div id="reset-invalid" hidden>
+        <p class="lede">This reset link is invalid or has expired. Links expire after a short time for your security.</p>
+        <a class="button button-dark auth-submit" href="/forgot-password">Send a new link</a>
+      </div>
+      <div id="reset-done" hidden>
+        <div class="auth-success"><span class="big-tick">✓</span>
+          <h1>Password updated</h1>
+          <p class="lede">Your password has been changed. Sign in with your new password to continue.</p>
+          <a class="button button-dark auth-submit" href="/signin">Sign in</a></div>
+      </div>`;
+  }
+  return `<section class="wrap narrow-page"><div class="auth-card">${inner}</div></section>`;
+}
+
+function verifyEmailPanel(email){
+  return `<div class="auth-success"><span class="big-tick">✓</span>
+    <h1>Check your inbox</h1>
+    <p class="lede">We sent a confirmation link to <strong>${esc(email)}</strong>. Click it to activate your account, then sign in.</p>
+    <p class="fineprint">Didn't get it? Check your spam folder, or <a href="/signup">try again</a>.</p></div>`;
+}
+
+/* ---------- auth form wiring ---------- */
+function fieldError(form,name,msg){
+  const input=form.elements[name];if(!input)return;
+  const wrap=input.closest('.field');if(!wrap)return;
+  const e=wrap.querySelector('.field-error');
+  if(msg){wrap.classList.add('invalid');if(e){e.textContent=msg;e.hidden=false}}
+  else{wrap.classList.remove('invalid');if(e)e.hidden=true}
+}
+function clearFormErrors(form){
+  form.querySelectorAll('.field.invalid').forEach(w=>w.classList.remove('invalid'));
+  form.querySelectorAll('.field-error').forEach(e=>{e.hidden=true});
+  const fe=form.querySelector('.form-error');if(fe)fe.hidden=true;
+}
+function formFail(form,msg){const e=form.querySelector('.form-error');if(e){e.hidden=false;e.textContent=msg}}
+function fillDemoNote(scope,be){
+  const n=scope.querySelector('[data-demo-note]');
+  if(n&&be.mode==='demo'){n.hidden=false;n.textContent='Demo mode — accounts live in this browser only.'}
+}
+function pwScore(pw){let s=0;if(pw.length>=8)s++;if(pw.length>=12)s++;if(/[a-z]/.test(pw)&&/[A-Z]/.test(pw))s++;if(/\d/.test(pw))s++;if(/[^A-Za-z0-9]/.test(pw))s++;return Math.min(4,s)}
+function wirePwToggles(scope){
+  scope.querySelectorAll('[data-toggle-pw]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const input=btn.closest('.pw-wrap').querySelector('input');
+      const show=input.type==='password';
+      input.type=show?'text':'password';
+      btn.textContent=show?'Hide':'Show';
+      btn.setAttribute('aria-label',show?'Hide password':'Show password');
+    });
+  });
+}
+function wirePwMeter(form){
+  const input=form.querySelector('[data-pw-meter]'),meter=form.querySelector('[data-meter]');
+  if(!input||!meter)return;
+  input.addEventListener('input',()=>{meter.setAttribute('data-level',input.value?pwScore(input.value):0)});
+}
+
+async function wireSignin(form){
+  const be=await getBackend();
+  fillDemoNote(form,be);wirePwToggles(form);
+  form.addEventListener('submit',async e=>{
+    e.preventDefault();clearFormErrors(form);
+    const fd=new FormData(form);
+    const email=(fd.get('email')||'').toString().trim(),pw=(fd.get('password')||'').toString();
+    let ok=true;
+    if(!emailOk(email)){fieldError(form,'email','Enter a valid email address.');ok=false}
+    if(!pw){fieldError(form,'password','Enter your password.');ok=false}
+    if(!ok){form.querySelector('.field.invalid input')?.focus();return}
+    const btn=form.querySelector('[type=submit]');btn.disabled=true;btn.textContent='Signing in…';
+    try{
+      await be.signIn({email,password:pw,remember:fd.get('remember')==='on'});
+      notify('Welcome back!');
+      location.href=safeNext()||'/account';
+    }catch(ex){formFail(form,ex.message);btn.disabled=false;btn.textContent='Sign in'}
+  });
+}
+
+async function wireSignup(form){
+  const be=await getBackend();
+  fillDemoNote(form,be);wirePwToggles(form);wirePwMeter(form);
+  form.addEventListener('submit',async e=>{
+    e.preventDefault();clearFormErrors(form);
+    const fd=new FormData(form);
+    const name=(fd.get('name')||'').toString().trim(),email=(fd.get('email')||'').toString().trim(),
+          phone=(fd.get('phone')||'').toString().trim(),pw=(fd.get('password')||'').toString(),
+          pw2=(fd.get('confirm')||'').toString();
+    let ok=true;
+    if(name.length<2){fieldError(form,'name','Enter your full name.');ok=false}
+    if(!emailOk(email)){fieldError(form,'email','Enter a valid email address.');ok=false}
+    if(phone&&phone.replace(/\D/g,'').length<7){fieldError(form,'phone','Enter a valid phone number, or leave it blank.');ok=false}
+    if(pw.length<8){fieldError(form,'password','Use at least 8 characters.');ok=false}
+    if(pw2!==pw){fieldError(form,'confirm','Passwords do not match.');ok=false}
+    if(fd.get('terms')!=='on'){formFail(form,'Please accept the Terms & Conditions and Privacy Policy to create an account.');ok=false}
+    if(!ok){(form.querySelector('.field.invalid input')||form.querySelector('.form-error:not([hidden])'))?.focus?.();return}
+    const btn=form.querySelector('[type=submit]');btn.disabled=true;btn.textContent='Creating account…';
+    try{
+      const {emailConfirmationRequired}=await be.signUp({name,email,phone,password:pw,marketing:fd.get('marketing')==='on'});
+      if(emailConfirmationRequired){
+        form.closest('.auth-form-card').innerHTML=verifyEmailPanel(email);
+      }else{
+        notify('Account created — welcome to Socyn Crest!');
+        location.href=safeNext()||'/account';
+      }
+    }catch(ex){formFail(form,ex.message);btn.disabled=false;btn.textContent='Create account'}
+  });
+}
+
+async function wireForgot(form){
+  const be=await getBackend();
+  wirePwToggles(form);
+  form.addEventListener('submit',async e=>{
+    e.preventDefault();clearFormErrors(form);
+    const email=(new FormData(form).get('email')||'').toString().trim();
+    if(!emailOk(email)){fieldError(form,'email','Enter a valid email address.');form.querySelector('input').focus();return}
+    const btn=form.querySelector('[type=submit]');btn.disabled=true;btn.textContent='Sending…';
+    try{
+      await be.requestPasswordReset(email);
+      form.closest('.auth-card').innerHTML=`<div class="auth-success"><span class="big-tick">✓</span>
+        <h1>Check your inbox</h1>
+        <p class="lede">If an account exists for <strong>${esc(email)}</strong>, we've sent a password reset link. It expires after a short time.</p>
+        <p class="auth-alt"><a href="/signin">Back to sign in</a></p></div>`;
+    }catch(ex){formFail(form,ex.message);btn.disabled=false;btn.textContent='Send reset link'}
+  });
+}
+
+async function wireReset(){
+  const be=await getBackend();
+  const form=document.querySelector('#reset-form');if(!form)return;
+  const verify=document.querySelector('#reset-verify'),invalid=document.querySelector('#reset-invalid'),
+        done=document.querySelector('#reset-done');
+  wirePwToggles(form);wirePwMeter(form);
+  let live=false;
+  const show=()=>{if(live)return;live=true;verify.hidden=true;form.hidden=false;form.querySelector('input')?.focus()};
+  const fail=()=>{if(live)return;live=true;verify.hidden=true;invalid.hidden=false};
+  const unsub=be.onPasswordRecovery?be.onPasswordRecovery(show):null;
+  be.getSession().then(s=>{if(s)show()});
+  setTimeout(()=>{if(!live)fail()},8000);
+  form.addEventListener('submit',async e=>{
+    e.preventDefault();clearFormErrors(form);
+    const fd=new FormData(form);
+    const pw=(fd.get('password')||'').toString(),pw2=(fd.get('confirm')||'').toString();
+    let ok=true;
+    if(pw.length<8){fieldError(form,'password','Use at least 8 characters.');ok=false}
+    if(pw2!==pw){fieldError(form,'confirm','Passwords do not match.');ok=false}
+    if(!ok){form.querySelector('.field.invalid input')?.focus();return}
+    const btn=form.querySelector('[type=submit]');btn.disabled=true;btn.textContent='Updating…';
+    try{
+      await be.updatePassword(pw);
+      if(unsub)unsub();
+      form.hidden=true;done.hidden=false;
+    }catch(ex){formFail(form,ex.message);btn.disabled=false;btn.textContent='Set new password'}
+  });
+}
+
 const pages={
   '/':home,'/shop':shop,'/contact':contact,'/account':account,'/checkout':checkout,'/admin':admin,
+  '/signin':signin,'/signup':signup,'/forgot-password':forgotPassword,'/reset-password':resetPassword,
   '/privacy':()=>policy('/privacy'),'/terms':()=>policy('/terms'),
   '/returns':()=>policy('/returns'),'/shipping':()=>policy('/shipping'),
 };
-const pageTitles={'/':'Clothing & textiles','/shop':'Shop','/contact':'Contact','/account':'Your account','/checkout':'Checkout','/admin':'Admin console','/returns':'Cancellation & refunds','/shipping':'Shipping policy','/privacy':'Privacy policy','/terms':'Terms & conditions'};
+const pageTitles={'/':'Clothing & textiles','/shop':'Shop','/contact':'Contact','/account':'Your account','/checkout':'Checkout','/admin':'Admin console','/signin':'Sign in','/signup':'Create account','/forgot-password':'Reset password','/reset-password':'Set new password','/returns':'Cancellation & refunds','/shipping':'Shipping policy','/privacy':'Privacy policy','/terms':'Terms & conditions'};
 
 /* ==================== SHELL + BOOT ==================== */
 app.innerHTML = `<a href="#main" class="skip-link">Skip to content</a>${header}<main id="main" tabindex="-1"><div id="page"></div></main>${footer}
 <div class="overlay" id="overlay" hidden></div>
 <aside class="drawer" id="bag-drawer" aria-label="Shopping bag" aria-modal="true" role="dialog" hidden><div class="drawer-head"><div><span class="eyebrow">YOUR SELECTION</span><h2>Shopping bag</h2></div><button class="close" id="bag-close" aria-label="Close bag">×</button></div><div id="bag-items"></div><div class="drawer-foot"><div class="total"><span>Subtotal</span><strong id="bag-total">$0.00</strong></div><p>Shipping & taxes calculated at checkout.</p><a href="/checkout" class="button button-dark">Checkout <span>→</span></a></div></aside>
 <div class="modal" id="product-modal" role="dialog" aria-modal="true" aria-label="Product details" hidden></div>
-${authModalHtml}
 <div class="toast" id="toast" role="status" aria-live="polite"></div>`;
 document.title = `${pageTitles[slug]||'Page not found'} | Socyn Crest`;
 
@@ -306,9 +559,9 @@ const toast=document.querySelector('#toast');let toastTimer;
 function notify(s){toast.textContent=s;toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),2600)}
 
 /* ---------- panels ---------- */
-const overlay=document.querySelector('#overlay'),drawer=document.querySelector('#bag-drawer'),modal=document.querySelector('#product-modal'),authModal=document.querySelector('#auth-modal');
+const overlay=document.querySelector('#overlay'),drawer=document.querySelector('#bag-drawer'),modal=document.querySelector('#product-modal');
 const menu=document.querySelector('#menu-trigger'),mobile=document.querySelector('#mobile-nav');
-const allPanels=[drawer,modal,authModal];
+const allPanels=[drawer,modal];
 let priorFocus=null;
 function closePanels(){
   if(overlay.hidden)return;
@@ -344,17 +597,15 @@ cart.subscribe(renderBag);
 let backend=null, session=null;
 const accountBtn=()=>document.querySelector('#account-trigger');
 function renderAccountButton(){
-  const b=accountBtn();if(!b)return;
-  b.textContent=session?`Hi, ${session.name.split(' ')[0]}`:'Account';
+  const label=session?`Hi, ${session.name.split(' ')[0]}`:'Sign in';
+  const href=session?'/account':'/signin';
+  const b=accountBtn();if(b){b.textContent=label;b.setAttribute('href',href)}
+  const m=document.querySelector('#mobile-account');if(m){m.textContent=session?'Account':'Sign in';m.setAttribute('href',href)}
 }
 async function refreshSession(){
   backend=await getBackend();
   session=await backend.getSession();
   renderAccountButton();
-  const note=document.querySelector('#auth-mode-note');
-  if(note) note.textContent = backendMode()==='demo'
-    ? 'Demo mode — accounts live in this browser only. Connect Supabase for production.'
-    : 'Secured by Socyn Crest.';
 }
 
 /* ---------- boot ---------- */
@@ -375,17 +626,15 @@ function wireGlobal(){
   document.querySelector('#bag-close').addEventListener('click',closePanels);
   overlay.addEventListener('click',closePanels);
   modal.querySelector('.modal-close')?.addEventListener('click',closePanels);
-  authModal.querySelector('.modal-close').addEventListener('click',closePanels);
   document.addEventListener('keydown',e=>{
     if(e.key==='Escape'){if(!overlay.hidden)closePanels();else if(!mobile.hidden){mobile.hidden=true;menu.setAttribute('aria-expanded','false');menu.focus()}}
     if(e.key==='Tab'&&!overlay.hidden){const panel=allPanels.find(p=>!p.hidden);if(!panel)return;const focusable=[...panel.querySelectorAll('a[href],button:not([disabled]),input,select,textarea')];if(!focusable.length)return;const first=focusable[0],last=focusable.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}
   });
   menu.addEventListener('click',()=>{mobile.hidden=!mobile.hidden;menu.setAttribute('aria-expanded',String(!mobile.hidden))});
-  accountBtn().addEventListener('click',()=>{ if(session) location.href='/account'; else openPanel(authModal); });
-  wireAuth();
+  wireAdminLogin();
   // add-to-bag / qty / product detail (delegated, works on every page)
   document.addEventListener('click',e=>{
-    const opener=e.target.closest('[data-open-auth]');if(opener){openPanel(authModal);return}
+    const opener=e.target.closest('[data-open-auth]');if(opener){location.href='/signin?next='+encodeURIComponent(slug);return}
     const add=e.target.closest('[data-add]');if(add){const ok=cart.add(add.dataset.add);notify(ok?'Added to your bag':'Added for this visit; browser storage is unavailable');return}
     const qty=e.target.closest('[data-qty]');if(qty){const id=qty.dataset.qty;const delta=Number(qty.dataset.delta);const cur=cart.getItems()[id]||0;cart.setQty(id,cur+delta);const next=drawer.querySelector(`[data-qty="${id}"][data-delta="${delta}"]`);(next||drawer.querySelector('#bag-close')).focus();return}
     const detail=e.target.closest('[data-detail]');if(detail){const p=api.getProduct(detail.dataset.detail);if(!p)return;modal.innerHTML=`<button class="modal-close close" aria-label="Close product details">×</button><img ${pimg(p,950,"(max-width: 650px) 90vw, 450px")} width="950" height="1187" alt="${esc(p.name)}"/><div class="modal-copy"><p class="eyebrow">${esc(p.category)} / ${esc(p.badge)}</p><h2>${esc(p.name)}</h2><p>${esc(p.description)}</p><strong>${money(p.price)}</strong><p class="fineprint">Price in USD. Shipping is calculated at checkout.</p><button class="button button-dark magnetic" data-add="${esc(p.id)}">Add to bag <span>+</span></button></div>`;modal.setAttribute('aria-label',p.name);modal.querySelector('.modal-close').addEventListener('click',closePanels);wireMagnetic(modal);openPanel(modal)}
@@ -401,6 +650,11 @@ function wireGlobal(){
 }
 function wirePage(){
   wireShop();
+  const si=document.querySelector('#signin-form');if(si)wireSignin(si);
+  const su=document.querySelector('#signup-form');if(su)wireSignup(su);
+  const ff=document.querySelector('#forgot-form');if(ff)wireForgot(ff);
+  if(document.querySelector('#reset-form'))wireReset();
+  if(si||su)getBackend().then(b=>b.getSession()).then(sess=>{if(sess)location.replace(safeNext()||'/account')});
   // sign out (account page)
   document.querySelector('#signout-btn')?.addEventListener('click',async()=>{await backend.signOut();location.href='/'});
   // checkout submit
@@ -424,32 +678,7 @@ function wirePage(){
     }catch(ex){err.hidden=false;err.textContent=ex.message;btn.disabled=false;btn.textContent='Try again';}
   })}
 }
-function wireAuth(){
-  const tabs=[...authModal.querySelectorAll('[data-authtab]')];
-  const forms={signin:document.querySelector('#signin-form'),signup:document.querySelector('#signup-form')};
-  const showTab=name=>{
-    tabs.forEach(t=>{const active=t.dataset.authtab===name;t.classList.toggle('active',active);t.setAttribute('aria-selected',String(active))});
-    forms.signin.hidden=name!=='signin';forms.signup.hidden=name!=='signup';
-  };
-  tabs.forEach(t=>t.addEventListener('click',()=>showTab(t.dataset.authtab)));
-  const fail=(form,msg)=>{const e=form.querySelector('.form-error');e.hidden=false;e.textContent=msg};
-  const clearErr=form=>{form.querySelector('.form-error').hidden=true};
-  const done=async(msg)=>{
-    closePanels();notify(msg);await refreshSession();
-    if(['/account','/admin','/checkout'].includes(slug)) location.reload();
-  };
-  forms.signin.addEventListener('submit',async e=>{
-    e.preventDefault();clearErr(forms.signin);
-    const fd=new FormData(forms.signin);
-    try{await backend.signIn({email:fd.get('email'),password:fd.get('password')});await done('Welcome back!')}
-    catch(ex){fail(forms.signin,ex.message)}
-  });
-  forms.signup.addEventListener('submit',async e=>{
-    e.preventDefault();clearErr(forms.signup);
-    const fd=new FormData(forms.signup);
-    try{await backend.signUp({name:fd.get('name'),email:fd.get('email'),password:fd.get('password')});await done('Account created — welcome to Socyn Crest!')}
-    catch(ex){fail(forms.signup,ex.message)}
-  });
+function wireAdminLogin(){
   const al=document.querySelector('#admin-login');
   if(al){al.addEventListener('submit',async e=>{
     e.preventDefault();const err=al.querySelector('.form-error');err.hidden=true;
