@@ -1,19 +1,28 @@
 // Business information for Socyn Crest LLC.
 // The owner should verify every field here before sending the site to the bank:
-// especially phone and address, which are still placeholders.
+// the phone number is still a placeholder.
 export const business = {
   name: 'Socyn Crest',
   legalName: 'Socyn Crest LLC',
   trade: 'Clothing & textiles',
   phone: '',
   email: 'contact@socyncrest.com',
-  address: '',
-  supportHours: '',
+  address: '4660 90th Ave SE, Eyota, MN 55934',
+  supportHours: 'Monday–Friday, 9:00 AM – 5:00 PM Central Time',
   currency: 'USD',
-  shipping: 'Orders are processed within 2–3 business days and shipped via USPS, UPS, or FedEx.',
+  shipping: 'Orders are processed within 1–2 business days and shipped via USPS, UPS, or FedEx.',
   returns: '30-day returns on unused, unworn items. Refunds go to the original payment method within 10 business days.',
-  updated: 'October 5, 2026',
+  updated: 'October 6, 2026',
 };
+
+/* Industry-standard U.S. shipping rates. Single source of truth for the
+   storefront, checkout, and both backends. */
+export const shippingRates = {
+  standard: { label: 'Standard', eta: '3–5 business days', price: 5.95, freeOver: 75 },
+  express: { label: 'Express', eta: '2 business days', price: 14.95 },
+};
+export const shippingFor = (subtotal, method = 'standard') =>
+  method === 'express' ? shippingRates.express.price : (subtotal >= shippingRates.standard.freeOver ? 0 : shippingRates.standard.price);
 
 // Product catalog with example prices for the clothing & textile store.
 // Replace images with real product photography before launch.

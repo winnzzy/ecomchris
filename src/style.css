@@ -347,3 +347,27 @@ body{animation:page-in .5s ease both}
 .narrow-page{padding:70px 0 110px}
 @media(max-width:900px){.auth-page{grid-template-columns:1fr;min-height:0}.auth-side{padding:36px 24px}.auth-side h2{margin-bottom:22px}.auth-perks{grid-template-columns:1fr 1fr}.auth-main{padding:44px 22px}}
 @media(max-width:560px){.auth-perks{grid-template-columns:1fr}}
+
+/* ---------- checkout shipping methods ---------- */
+.ship-methods{display:grid;gap:10px;margin-bottom:10px}
+.ship-option{display:flex;align-items:center;gap:14px;border:1px solid #b8c6b6;border-radius:6px;background:#fff;padding:14px 16px;cursor:pointer;font-size:14px;transition:border-color .2s,box-shadow .2s}
+.ship-option:has(input:checked){border-color:#173b39;box-shadow:0 0 0 1px #173b39}
+.ship-option input{width:17px;height:17px;accent-color:#173b39;flex:none}
+.ship-name{display:flex;flex-direction:column;gap:2px;flex:1}
+.ship-name em{font-style:normal;color:#75857b;font-size:13px}
+.ship-price{white-space:nowrap}
+.ship-price em{font-style:normal;font-weight:400;color:#75857b;font-size:12px}
+.sum-line em{font-style:normal;color:#75857b;font-size:12px}
+
+/* ---------- FAQ ---------- */
+.faq-groups{max-width:860px;padding-bottom:120px}
+.faq-group{margin-bottom:44px}
+.faq-group h2{font-size:23px;letter-spacing:-.03em;margin:0 0 6px}
+.faq-item{border-top:1px solid #d7dfd4}
+.faq-item:last-child{border-bottom:1px solid #d7dfd4}
+.faq-item summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:18px;padding:20px 4px;cursor:pointer;font-weight:700;font-size:16px}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary:after{content:'+';flex:none;width:30px;height:30px;display:grid;place-items:center;border:1px solid #b8c6b6;border-radius:50%;font-size:18px;font-weight:400;transition:transform .25s,background .25s}
+.faq-item[open] summary:after{content:'–';background:#173b39;color:#fff;border-color:#173b39}
+.faq-item .faq-a{padding:0 4px 24px;line-height:1.75;color:#536a5e;font-size:15.5px;max-width:680px}
+.faq-item .faq-a a{text-decoration:underline;text-underline-offset:3px;font-weight:700}

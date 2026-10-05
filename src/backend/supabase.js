@@ -13,6 +13,7 @@
  * backend — the storefront works either way.
  */
 import { createClient } from '@supabase/supabase-js';
+import { shippingFor } from '../config.js';
 
 const url = import.meta.env.VITE_SUPABASE_URL;
 const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -73,7 +74,7 @@ async function toUser(client, authUser) {
   };
 }
 
-const shippingFor = (subtotal) => (subtotal >= 75 ? 0 : 5.95);
+
 const money2 = (n) => Math.round(n * 100) / 100;
 
 export const supabaseBackend = {
@@ -162,20 +163,27 @@ export const supabaseBackend = {
   },
 
   /* ----- orders ----- */
-  async createOrder({ items, address }) {
+  async createOrder({ items, address, shippingMethod }) {
     const client = await authed();
     const { data: { user } } = await client.auth.getUser();
     const session = await toUser(client, user);
     if (!session) throw new Error('Please sign in to place an order.');
+    const method = shippingMethod === 'express' ? 'express' : 'standard';
     const subtotal = money2(items.reduce((s, i) => s + i.price * i.qty, 0));
-    const shipping = shippingFor(subtotal);
-    const { data: order, error } = await client.from('orders').insert({
+    const shipping = shippingFor(subtotal, method);
+    const row = {
       customer_id: session.id,
       customer_name: session.name,
       email: session.email,
-      subtotal, shipping, total: money2(subtotal + shipping),
+      subtotal, shipping, shipping_method: method, total: money2(subtotal + shipping),
       address, status: 'pending',
-    }).select().single();
+    };
+    let { data: order, error } = await client.from('orders').insert(row).select().single();
+    if (error && /shipping_method/.test(error.message)) {
+      // migration-003 not run yet — place the order without the method column
+      delete row.shipping_method;
+      ({ data: order, error } = await client.from('orders').insert(row).select().single());
+    }
     if (error) throw new Error(error.message);
     const { error: itemsError } = await client.from('order_items').insert(
       items.map((i) => ({ order_id: order.id, product_id: i.product_id, name: i.name, price: i.price, qty: i.qty }))

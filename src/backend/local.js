@@ -12,7 +12,7 @@
  * Swap point: src/backend/index.js selects this or the Supabase backend.
  * Both implement the same async interface documented below.
  */
-import { products as seedCatalog } from '../config.js';
+import { products as seedCatalog, shippingFor } from '../config.js';
 
 const K = {
   users: 'sc_users',
@@ -61,7 +61,6 @@ async function sha256(str) {
 }
 
 const money2 = (n) => Math.round(n * 100) / 100;
-const shippingFor = (subtotal) => (subtotal >= 75 ? 0 : 5.95);
 
 /* ---------------- seed data ---------------- */
 async function seed() {
@@ -193,17 +192,18 @@ export const localBackend = {
   },
 
   /* ----- orders ----- */
-  async createOrder({ items, address }) {
+  async createOrder({ items, address, shippingMethod }) {
     await seed();
     const session = await this.getSession();
     if (!session) throw new Error('Please sign in to place an order.');
+    const method = shippingMethod === 'express' ? 'express' : 'standard';
     const subtotal = money2(items.reduce((s, i) => s + i.price * i.qty, 0));
-    const shipping = shippingFor(subtotal);
+    const shipping = shippingFor(subtotal, method);
     const orders = read(K.orders, []);
     const number = `SC-${1001 + orders.length}`;
     const order = {
       id: uid('o'), number, customer_id: session.id, customer_name: session.name, email: session.email,
-      items, subtotal, shipping, total: money2(subtotal + shipping),
+      items, subtotal, shipping, shipping_method: method, total: money2(subtotal + shipping),
       address, status: 'pending', created_at: new Date().toISOString(),
     };
     orders.unshift(order);
