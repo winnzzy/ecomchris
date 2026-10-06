@@ -1,11 +1,10 @@
 // Business information for Socyn Crest LLC.
-// The owner should verify every field here before sending the site to the bank:
-// the phone number is still a placeholder.
+// The owner should verify every field here before sending the site to the bank.
 export const business = {
   name: 'Socyn Crest',
   legalName: 'Socyn Crest LLC',
   trade: 'Clothing & textiles',
-  phone: '',
+  phone: '+1 (507) 696-9852',
   email: 'contact@socyncrest.com',
   address: '4660 90th Ave SE, Eyota, MN 55934',
   supportHours: 'Monday–Friday, 9:00 AM – 5:00 PM Central Time',

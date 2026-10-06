@@ -576,7 +576,7 @@ function faq(){
     ]],
     ['Account & support',[
       ['How do I reset my password?','Use the “Forgot password?” link on the <a href="/signin">sign-in page</a> and we will email you a secure reset link.'],
-      ['How can I contact you?','Email us at <a href="mailto:contact@socyncrest.com">contact@socyncrest.com</a> or write to 4660 90th Ave SE, Eyota, MN 55934. Our support hours are Monday–Friday, 9:00 AM – 5:00 PM Central Time.'],
+      ['How can I contact you?','Call us at +1 (507) 696-9852, email us at <a href="mailto:contact@socyncrest.com">contact@socyncrest.com</a> or write to 4660 90th Ave SE, Eyota, MN 55934. Our support hours are Monday–Friday, 9:00 AM – 5:00 PM Central Time.'],
     ]],
   ];
   return `${title('Frequently asked questions.','HELP CENTER')}<section class="wrap faq-groups">`
