@@ -210,6 +210,8 @@ export const localBackend = {
     write(K.orders, orders);
     return order;
   },
+  /** Demo backend has no email service — order receipts need the Resend edge function. */
+  async sendOrderEmail() { return; },
   async listMyOrders() {
     const session = await this.getSession();
     if (!session) return [];

@@ -191,6 +191,21 @@ export const supabaseBackend = {
     if (itemsError) throw new Error(itemsError.message);
     return { ...order, number: `SC-${String(order.seq).padStart(4, '0')}`, items };
   },
+  /* ----- transactional email (Resend, via edge function) ----- */
+  /** Fire-and-forget order receipt. Never throws — a failed email must not
+      block checkout. Deploy supabase/functions/send-order-email first. */
+  async sendOrderEmail(orderId) {
+    if (!isConfigured || !orderId) return;
+    try {
+      const client = await authed();
+      const { error } = await client.functions.invoke('send-order-email', {
+        body: { order_id: orderId },
+      });
+      if (error) console.warn('Order receipt email failed:', error.message);
+    } catch (e) {
+      console.warn('Order receipt email failed:', e.message);
+    }
+  },
   async listMyOrders() {
     const client = await authed();
     const { data: { user } } = await client.auth.getUser();

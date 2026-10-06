@@ -729,6 +729,8 @@ function wirePage(){
       const method=cf.querySelector('input[name=method]:checked')?.value||'standard';
       const order=await backend.createOrder({items,address,shippingMethod:method});
       cart.clear();
+      // Fire-and-forget: email the receipt via Resend (never blocks the success page).
+      backend.sendOrderEmail?.(order.id);
       document.querySelector('#page').innerHTML=checkoutSuccess(order);
       window.scrollTo({top:0,behavior:'smooth'});
     }catch(ex){err.hidden=false;err.textContent=ex.message;btn.disabled=false;btn.textContent='Try again';}

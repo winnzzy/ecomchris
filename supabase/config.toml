@@ -1,0 +1,6 @@
+# Socyn Crest — Supabase Edge Functions config.
+# Deploy with: supabase functions deploy send-order-email
+
+[functions.send-order-email]
+enabled = true
+verify_jwt = true   # only signed-in customers can request their own receipt
