@@ -57,7 +57,7 @@ function home(){return `
   </div>
   <div class="hero-art">
     <img src="${image('photo-1445205170230-053b83016050',1400)}" ${responsiveImage("photo-1445205170230-053b83016050", "(max-width: 650px) 100vw, 52vw")} fetchpriority="high" width="1400" height="1400" alt="Curated clothing rail at Socyn Crest"/>
-    <div class="hero-badge" aria-hidden="true"><svg viewBox="0 0 120 120"><defs><path id="circ" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0"/></defs><text><textPath href="#circ">SOCYN CREST • NEW SEASON • SOCYN CREST • NEW SEASON •</textPath></text></svg><span>✦</span></div>
+    <div class="hero-badge" aria-hidden="true"><svg viewBox="0 0 120 120"><defs><path id="circ" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0"/></defs><text><textPath href="#circ" textLength="276" lengthAdjust="spacingAndGlyphs">SOCYN CREST • NEW SEASON • </textPath></text></svg><span>✦</span></div>
     <span class="hero-caption">The new season edit</span>
   </div>
 </section>
