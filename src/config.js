@@ -23,6 +23,16 @@ export const shippingRates = {
 export const shippingFor = (subtotal, method = 'standard') =>
   method === 'express' ? shippingRates.express.price : (subtotal >= shippingRates.standard.freeOver ? 0 : shippingRates.standard.price);
 
+/* Payment gateway seam. The bank hasn't approved online payment yet, so the
+   provider stays null and checkout runs in "arrange payment manually" mode.
+   When approved, set provider (e.g. 'stripe') and the publishable key, then
+   implement backend.createPaymentIntent() for that provider — checkout will
+   pick it up automatically. Never put a secret key here. */
+export const payments = {
+  provider: null,
+  publishableKey: '',
+};
+
 // Product catalog with example prices for the clothing & textile store.
 // Replace images with real product photography before launch.
 export const products = [

@@ -12,7 +12,7 @@
  * Swap point: src/backend/index.js selects this or the Supabase backend.
  * Both implement the same async interface documented below.
  */
-import { products as seedCatalog, shippingFor } from '../config.js';
+import { products as seedCatalog, shippingFor, payments } from '../config.js';
 
 const K = {
   users: 'sc_users',
@@ -212,6 +212,11 @@ export const localBackend = {
   },
   /** Demo backend has no email service — order receipts need the Resend edge function. */
   async sendOrderEmail() { return; },
+  /** Demo backend: no payment provider in demo mode. */
+  async createPaymentIntent(order) {
+    if (!payments.provider) return null;
+    throw new Error(`Payment provider "${payments.provider}" is not wired up yet.`);
+  },
   async listMyOrders() {
     const session = await this.getSession();
     if (!session) return [];

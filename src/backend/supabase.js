@@ -13,7 +13,7 @@
  * backend — the storefront works either way.
  */
 import { createClient } from '@supabase/supabase-js';
-import { shippingFor } from '../config.js';
+import { shippingFor, payments } from '../config.js';
 
 const url = import.meta.env.VITE_SUPABASE_URL;
 const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -205,6 +205,14 @@ export const supabaseBackend = {
     } catch (e) {
       console.warn('Order receipt email failed:', e.message);
     }
+  },
+  /* ----- payment gateway seam ----- */
+  /** Returns null while no provider is configured (checkout skips payment).
+      Once payments.provider is set, implement per provider and return
+      { redirectUrl } or { clientSecret } — checkout handles the rest. */
+  async createPaymentIntent(order) {
+    if (!payments.provider) return null;
+    throw new Error(`Payment provider "${payments.provider}" is not wired up yet.`);
   },
   async listMyOrders() {
     const client = await authed();

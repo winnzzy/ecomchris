@@ -1,6 +1,6 @@
 import './style.css';
 import { api, business } from './api.js';
-import { shippingRates, shippingFor } from './config.js';
+import { shippingRates, shippingFor, payments } from './config.js';
 import { cart } from './store.js';
 import { getBackend, backendMode } from './backend/index.js';
 
@@ -155,7 +155,9 @@ async function checkout(){
           <strong class="ship-price">$14.95</strong></label>
       </div>
       <h2>Payment</h2>
-      <p class="pay-note">Online payment is being set up with our bank and isn't live yet — place your order now and we'll contact you at <strong>${esc(session.email)}</strong> to arrange payment.</p>
+      ${payments.provider
+        ? `<div id="payment-gateway"><!-- the configured provider's checkout UI mounts here --></div>`
+        : `<p class="pay-note">Online payment is being set up with our bank and isn't live yet — place your order now and we'll contact you at <strong>${esc(session.email)}</strong> to arrange payment.</p>`}
       <p class="form-error" role="alert" hidden></p>
       <button class="button button-dark" type="submit" id="checkout-submit">Place order · ${money(total)}</button>
     </form>
@@ -728,6 +730,10 @@ function wirePage(){
       const items=cart.entries().map(({product:p,qty})=>({product_id:p.id,name:p.name,price:p.price,qty}));
       const method=cf.querySelector('input[name=method]:checked')?.value||'standard';
       const order=await backend.createOrder({items,address,shippingMethod:method});
+      // Payment gateway seam: null until a provider is configured in config.js.
+      // A live provider returns { redirectUrl } and the shopper goes there next.
+      const payment=await backend.createPaymentIntent(order);
+      if(payment?.redirectUrl){location.href=payment.redirectUrl;return}
       cart.clear();
       // Fire-and-forget: email the receipt via Resend (never blocks the success page).
       backend.sendOrderEmail?.(order.id);
